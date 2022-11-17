@@ -1,17 +1,62 @@
-#ifndef _TESTPROJECT_H 
+#ifndef _TESTPROJECT_H
 #define _HTESTPROJECT_H
-void encrypt(uint8_t* input, uint8_t length, uint8_t* output);
-void decrypt(uint8_t* input, uint8_t length, uint8_t* output);
 
-void Communication_onDataReceived(uint8_t* data, uint16_t length);
-void Communication_sendData(uint8_t* data, uint16_t length);
+// enum to associate an ID with command
+typedef enum
+{
+    addPasscode = 1,
+    ADDITION,
+} idnum;
 
-void CommandHandler_handle( uint8_t actionId, uint8_t* actionPayload);
+/**
+ * @brief struct of payload
+ * Due to the fact that I dont know about the data received format,the variables are hypothetical
+ */
+typedef struct
+{
+    char passCode[10];
+    uint8_t startTime;
+    uint8_t endTime;
+    uint8_t batteryState; // in percent
+    uint8_t openDoor;     // 1 means door must open
+} Packet;
+
+/**
+ * @brief Pointer function to call a function related command
+ */
+typedef void (*functionPointer)(void);
+
+struct commandStruct
+{
+    idnum ID;                // Assume be a relationship between actionID and command
+    functionPointer execute; // According to the received ID, it points to a function corresponding to the command
+};
+
+// struct to cast date received
+typedef struct
+{
+    idnum actionId;
+    char actionPayload[200];
+} PacketRecieve;
+
+void encrypt(uint8_t *input, uint8_t length, uint8_t *output);
+void decrypt(uint8_t *input, uint8_t length, uint8_t *output);
+
+void Communication_onDataReceived(idnum Id, char *Payload);
+void Communication_sendData(uint8_t *data, uint16_t length);
+
+void CommandHandler_handle(uint8_t actionId, char *actionPayload);
 
 void Communication_openResponse();
 
-void Communication_appendResponse(uint8_t* data, uint8_t length);
+void Communication_appendResponse(uint8_t *data, uint8_t length);
 
 void Communication_closeResponse();
+
+void addPasscode(char *Payload);
+void deletePasscode(char *Payload);
+void getBatteryStatus(char *Payload);
+void openDoor(char *Payload);
+
 
 #endif
