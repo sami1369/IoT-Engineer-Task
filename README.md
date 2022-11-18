@@ -1,7 +1,7 @@
 # IoT Engineer Task
 In this project we are to implement a secure communication protocol.<br />
 Firstly, when the mobile application sends a request, the “receivedCallback”
-Callback is called by the request. In this function, We need to decrypt the callback data received,
+is called by the request. In this function, We need to decrypt the callback data received,
 and then, the data is deserialized to extract the parameters in order to use in the
 “handleCommand” function parameters.<br />
 The “handleCommand” function handles the run of corresponding command. We assume
