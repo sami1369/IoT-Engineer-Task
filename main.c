@@ -1,31 +1,31 @@
-#include <TestProject.h>
+#include <test_project.h>
 
 /**
  * @brief callback for receive data from client
  * Start Point
  * first  decrypt data
- * deserialize data to extract parameters to use in CommandHandler_handle function
+ * deserialize data to extract parameters to use in handleCommand_handle function
  * @param data an encrypted data from client
  * @param length size of data
  */
-Communication_onDataReceived(uint8_t *data, uint16_t length)(
-    decrypt(data, length, output); // decrypt the callback data received
-    PacketRecieve *packRecieve = NULL;
-    packRecieve = (PacketRecieve *)output; // Casting received data(Deserialization)
-    CommandHandler_handle(packRecieve->actionId, packRecieve->actionPayload);
+  receivedCallback(uint8_t *data, uint16_t length)(
+  decryptPayload(data, length, output); // decrypt the callback data received
+  payloadReceive *payload = NULL;
+  payload = (payloadReceive *)output; // Casting received data(Deserialization)
+  handleCommand(payload->action_ID, payload->action_payload);
 )
 
 int main()
 {
   while (1)
   {
-    if (openToResponse == false && sendReport == true)
+    if (open_to_responseResponse == false && send_response == true)
     {
-      // Start to report the client by sending ok
-      encrypt(buffer, length, output);
-      Communication_sendData(output, length);
-      memset(buffer, 0, bufferSize);
-      sendReport == false;
+      // Start to Response to the client
+      encryptPayload(buffer, length, output);
+      sendDataToClient(output, length);
+      memset(buffer, 0, buffer_size);
+      send_response == false;
     }
   }
 }
