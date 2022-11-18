@@ -5,6 +5,8 @@
 bool openToResponse = false;
 bool sendResponse = false; // allowing Send client report
 
+char buffer[bufferSize];
+size_t bufferPos = 0;
 
 /**
  * @brief CommandHandler_handle function handle run of the corresponding command
@@ -13,7 +15,9 @@ bool sendResponse = false; // allowing Send client report
  * @param Payload contain data to implementation of an instruction based on the corresponding command
  */
 CommandHandler_handle(idnum Id, char *Payload)
-{
+{  
+  if(bufferPos < bufferSize )
+  {
   int i = 0;
   while (commands[i].execute > 0)
   {
@@ -21,11 +25,22 @@ CommandHandler_handle(idnum Id, char *Payload)
     {  
       Communication_openResponse();
       (*commands[i].execute)(Payload);
+      
       return;
     }
     i++;
   }
+  }
+  else {
+    Communication_closeResponse();
+  }
 }
+
+size_t Communication_appendResponse(char *data, idnum Id ,size_t length){
+  return (snprintf(buffer, length,"ID : %d data : %s", Id, data) < bufferSize)
+}
+
+
 /**
  * @brief call function to start the response
  */
@@ -43,20 +58,7 @@ void Communication_closeResponse();
   sendReport = true;
 }
 
-/**
- * @brief callback for receive data from client
- * Start Point
- * first  decrypt data
- * deserialize data to extract parameters to use in CommandHandler_handle function
- * @param data an encrypted data from client
- * @param length size of data
- */
-Communication_onDataReceived(uint8_t *data, uint16_t length)(
-    decrypt(data, length, output); // decrypt the callback data received
-    PacketRecieve *packRecieve = NULL;
-    packRecieve = (PacketRecieve *)output; // Casting received data(Deserialization)
-    CommandHandler_handle(packRecieve->actionId, packRecieve->actionPayload);
-)
+
 
 /**
  * @brief One of the functions that the pointer function points to
@@ -72,7 +74,7 @@ void addPasscode(char *Payload)
   printf("Passcode is %s\n", connect->passCode);
   printf("Start Time is %d\n", connect->startTime);
   printf("End Time is  %d\n", connect->endTime);
-  Communication_closeResponse();
+  bufferPos += Communication_appendResponse ((char) connect->passCode , ID ,bufferSize - bufferPos);  
 }
 
 /**
@@ -85,8 +87,8 @@ void deletePasscode(char *Payload)
   printf("%s\n", Payload);
   Packet *packet = NULL;
   packet = (Packet *)Payload;
-  Communication_closeResponse();
-}
+  bufferPos += Communication_appendResponse ("Passcode Deleted" , ID ,bufferSize - bufferPos);
+  }
 
 /**
  * @brief One of the functions that the pointer function points to
@@ -99,8 +101,8 @@ void getBatteryStatus(char *Payload)
   Packet *packet = NULL;
   packet = (Packet *)Payload;
   // Here I access the different fields of the packet using the Packet struct
-  printf("Battery Status is  %d\n", connect->endTime);
-  Communication_closeResponse();
+  bufferPos += Communication_appendResponse ((char) connect->batteryState , ID ,bufferSize - bufferPos);
+
 }
 
 /**
@@ -118,5 +120,5 @@ void openDoor(char *Payload);
   printf("door State  %d\n", connect->openDoor);
   printf("Start Time is %d\n", connect->startTime);
   printf("End Time is  %d\n", connect->endTime);
-  Communication_closeResponse();
+  bufferPos += Communication_appendResponse (connect->openDoor + '0' , ID ,bufferSize - bufferPos);
 }

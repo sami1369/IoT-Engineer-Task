@@ -1,6 +1,21 @@
 #ifndef _TESTPROJECT_H
 #define _HTESTPROJECT_H
 
+#define bufferSize 256
+/**
+ * @brief commandstruct is executed according to the action ID
+ * Assume be a relationship between actionID and command
+ * According to the desired ID that is related to a command,
+ * the corresponding function will be executed.
+ */
+const struct commandStruct commands[] = {
+    {1, &addPasscode},
+    {2, &deletePasscode},
+    {3, &getBatteryStatus},
+    {4, &openDoor},
+    {0, 0} // End of table indicator. MUST BE LAST!!!
+};
+
 // enum to associate an ID with command
 typedef enum
 {
@@ -49,7 +64,7 @@ void CommandHandler_handle(uint8_t actionId, char *actionPayload);
 
 void Communication_openResponse();
 
-void Communication_appendResponse(uint8_t *data, uint8_t length);
+void Communication_appendResponse(char *data, idnum Id, size_t length);
 
 void Communication_closeResponse();
 
