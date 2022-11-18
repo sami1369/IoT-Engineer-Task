@@ -15,7 +15,8 @@ functions as commands, far more than these four. When the task of these function
 we call the ”closeResponse” function to send a response to the client.in main loop as soon as the conditions are met, the response is done.<br />
 
 ## Project structure and architecture
-The overall structure of the project is implemented in the flowchart below. 
+The overall structure of the project is implemented in the flowchart below.<br />
+The project has three files that are executed in the main.c file of the program's routine. Also, the file test_project.h has headers and function prototypes as well as structures and test_project.c include variables and functions body.
 
 
 
