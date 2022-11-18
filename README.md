@@ -12,12 +12,14 @@ We also have a few functions that each of them corresponds to a specific command
 functionPointer points to one of them each time). We proposed four functions for instance as:
 addPasscode, deletePasscode, getBatteryStatus, and openDoor; but in fact, there should be as many.
 functions as commands, far more than these four. When the task of these functions is done, For optimization we must fill buffer completely and Finally
-we call the ”closeResponse” function to send a response to the client.<br />
+we call the ”closeResponse” function to send a response to the client.in main loop as soon as the conditions are met, the response is done.<br />
+
 ## Project structure and architecture
 The overall structure of the project is implemented in the flowchart below. 
 
 
-![Project Structure](https://user-images.githubusercontent.com/30548915/202695675-192c970a-91d5-4105-b492-3621e6c45e85.jpg).<br /><br /><br />
+
+![Project Structure](https://user-images.githubusercontent.com/30548915/202765674-2ca92aaf-27f1-4c6e-8951-0ce03b352362.jpg)<br /><br /><br />
 
 
 ## Naming Convention
