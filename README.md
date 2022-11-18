@@ -19,7 +19,7 @@ The overall structure of the project is implemented in the flowchart below.
 
 
 
-![Project Structure](https://user-images.githubusercontent.com/30548915/202765674-2ca92aaf-27f1-4c6e-8951-0ce03b352362.jpg)<br /><br /><br />
+![Project Structure](https://user-images.githubusercontent.com/30548915/202768862-a436cd14-f056-4334-83a9-f18026f85f4f.jpg)<br /><br /><br />
 
 
 ## Naming Convention
