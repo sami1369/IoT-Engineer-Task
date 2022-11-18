@@ -22,8 +22,9 @@ int main()
     if (openToResponse == false && sendReport == true)
     {
       // Start to report the client by sending ok
-      encrypt("ok", length, output);
+      encrypt(buffer, length, output);
       Communication_sendData(output, length);
+      memset(buffer, 0, bufferSize);
       sendReport == false;
     }
   }
