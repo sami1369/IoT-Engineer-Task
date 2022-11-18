@@ -3,7 +3,7 @@ In this project we are to implement a secure communication protocol.<br />
 Firstly, when the mobile application sends a request, the “receivedCallback”
 Callback is called by the request. In this function, We need to decrypt the callback data received,
 and then, the data is deserialized to extract the parameters in order to use in the
-“CommandHandler_handle” function parameters.<br />
+“handleCommand” function parameters.<br />
 The “handleCommand” function handles the run of corresponding command. We assume
 that each Id corresponds to a command. Hence, In order to run the corresponding command, a
 function pointer is used (called *functionPointer). In addition, a structure called “commandStruct”
