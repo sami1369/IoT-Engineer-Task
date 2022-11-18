@@ -1,18 +1,18 @@
 # IoT Engineer Task
 In this project we are to implement a secure communication protocol.<br />
-Firstly, when the mobile application sends a request, the “Communication_onDataReceived”
+Firstly, when the mobile application sends a request, the “receivedCallback”
 Callback is called by the request. In this function, We need to decrypt the callback data received,
 and then, the data is deserialized to extract the parameters in order to use in the
 “CommandHandler_handle” function parameters.<br />
-The “CommandHandler_handle” function handles the run of corresponding command. We assume
+The “handleCommand” function handles the run of corresponding command. We assume
 that each Id corresponds to a command. Hence, In order to run the corresponding command, a
 function pointer is used (called *functionPointer). In addition, a structure called “commandStruct”
 has been developed, which implements the proposed function according to the action ID.<br />
 We also have a few functions that each of them corresponds to a specific command (the
 functionPointer points to one of them each time). We proposed four functions for instance as:
-addPasscode, deletePasscode, batteryStatus, and openDoor; but in fact, there should be as many
+addPasscode, deletePasscode, getBatteryStatus, and openDoor; but in fact, there should be as many.
 functions as commands, far more than these four. When the task of these functions is done, For optimization we must fill buffer completely and Finally
-we call the ”Communication_closeResponse” function to send a report to the client.<br />
+we call the ”closeResponse” function to send a response to the client.<br />
 ## Project structure and architecture
 The overall structure of the project is implemented in the flowchart below. 
 
